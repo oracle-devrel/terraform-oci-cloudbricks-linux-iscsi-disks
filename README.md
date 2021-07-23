@@ -9,6 +9,8 @@ The following cloud brick enables you to create batches of iscsi disks associate
 The following is the reference architecture associated to the brick
 
 ![Reference Architecture](./images/Bricks_Architectures-linux_iscsi_disks.png)
+
+
 ### Prerequisites
 - This module needs to be used associated with a Linux Compute IaC Creation, as it depends on variable `compute_availability_domain_list` which needs to be pre-defined. 
 - Linux Compute Distributions currently supported under this module are: 
@@ -35,7 +37,6 @@ fingerprint      = "fo:oo:ba:ar:ba:ar"
 private_key_path = "/absolute/path/to/api/key/your_api_key.pem"
 ########## PROVIDER SPECIFIC VARIABLES ##########
 
-
 ########## ARTIFACT SPECIFIC VARIABLES ##########
 amount_of_disks                      = "2"
 disk_size_in_gb                      = "50"
@@ -43,7 +44,6 @@ iscsi_disk_instance_compartment_name = "MY_ARTIFACT_COMPARTMENT"
 volume_display_name                  = "diskbasename"
 backup_policy_level                  = "gold"
 ########## ARTIFACT SPECIFIC VARIABLES ##########
-
 ########## SAMPLE TFVAR FILE ##########
 ```
 
@@ -68,6 +68,35 @@ ssh_private_key                  = "PRIVATE_SSH_KEY_OF_INSTANCE"
   - `compute_display_name`: The display name given to the Linux Instance
   - `linux_compute_id`: The OCID associated to the Linux Instance
   - `ssh_private_key`: The SSH Private Key associated to the created Linux Instance
+
+---
+
+## Sample provider
+The following is the base provider definition to be used with this module
+
+```shell
+terraform {
+  required_version = ">= 0.13.5"
+}
+provider "oci" {
+  region       = var.region
+  tenancy_ocid = var.tenancy_ocid
+  user_ocid        = var.user_ocid
+  fingerprint      = var.fingerprint
+  private_key_path = var.private_key_path
+  disable_auto_retries = "true"
+}
+
+provider "oci" {
+  alias        = "home"
+  region       = data.oci_identity_region_subscriptions.home_region_subscriptions.region_subscriptions[0].region_name
+  tenancy_ocid = var.tenancy_ocid  
+  user_ocid        = var.user_ocid
+  fingerprint      = var.fingerprint
+  private_key_path = var.private_key_path
+  disable_auto_retries = "true"
+}
+```
 
 ---
 ## Variable documentation
