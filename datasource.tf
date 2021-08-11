@@ -26,18 +26,7 @@ data "oci_core_volume_backup_policies" "BACKUPPOLICYISCSI" {
   }
 }
 
-data "oci_identity_region_subscriptions" "home_region_subscriptions" {
-  tenancy_id = var.tenancy_ocid
-
-  filter {
-    name   = "is_home_region"
-    values = [true]
-  }
-}
-
 locals {
-  release = "1.0"
-
   # Compartment and backup policy local accessors
   compartment_id              = data.oci_identity_compartments.COMPARTMENTS.compartments[0].id
   backup_policy_iscsi_disk_id = data.oci_core_volume_backup_policies.BACKUPPOLICYISCSI.volume_backup_policies[0].id

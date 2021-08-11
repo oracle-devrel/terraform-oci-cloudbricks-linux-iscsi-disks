@@ -17,13 +17,6 @@ resource "oci_core_volume" "ISCSIDisk" {
   size_in_gbs         = var.disk_size_in_gb
   vpus_per_gb         = var.vpus_per_gb
 
-  lifecycle {
-    ignore_changes = [defined_tags["Oracle-Tags.CreatedBy"], defined_tags["Oracle-Tags.CreatedOn"]]
-  }
-  defined_tags = {
-    "${oci_identity_tag_namespace.devrel.name}.${oci_identity_tag.release.name}" = local.release
-  }
-
 }
 
 # Create Disk Attachment
