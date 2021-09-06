@@ -22,6 +22,7 @@ The following is the reference architecture associated to the brick
   - Oracle Linux 7.x
   - Oracle Linux 8.x
   - Custom images based on RHEL
+  - Ubuntu
   
 ---  
 
@@ -43,6 +44,7 @@ disk_size_in_gb                      = "50"
 iscsi_disk_instance_compartment_name = "MY_ARTIFACT_COMPARTMENT"
 volume_display_name                  = "diskbasename"
 backup_policy_level                  = "gold"
+is_opc                               = false
 ########## ARTIFACT SPECIFIC VARIABLES ##########
 ########## SAMPLE TFVAR FILE ##########
 ```
@@ -100,7 +102,6 @@ provider "oci" {
 
 ---
 ## Variable documentation
-
 ## Requirements
 
 | Name | Version |
@@ -113,8 +114,6 @@ provider "oci" {
 |------|---------|
 | <a name="provider_null"></a> [null](#provider\_null) | 3.1.0 |
 | <a name="provider_oci"></a> [oci](#provider\_oci) | 4.36.0 |
-| <a name="provider_oci.home"></a> [oci.home](#provider\_oci.home) | 4.36.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.1.0 |
 
 ## Modules
 
@@ -133,12 +132,8 @@ No modules.
 | [oci_core_volume.ISCSIDisk](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/core_volume) | resource |
 | [oci_core_volume_attachment.ISCSIDiskAttachment](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/core_volume_attachment) | resource |
 | [oci_core_volume_backup_policy_assignment.backup_policy_assignment_ISCSI_Disk](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/core_volume_backup_policy_assignment) | resource |
-| [oci_identity_tag.release](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/identity_tag) | resource |
-| [oci_identity_tag_namespace.devrel](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/identity_tag_namespace) | resource |
-| [random_id.tag](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [oci_core_volume_backup_policies.BACKUPPOLICYISCSI](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/core_volume_backup_policies) | data source |
 | [oci_identity_compartments.COMPARTMENTS](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/identity_compartments) | data source |
-| [oci_identity_region_subscriptions.home_region_subscriptions](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/identity_region_subscriptions) | data source |
 
 ## Inputs
 
@@ -152,6 +147,7 @@ No modules.
 | <a name="input_compute_display_name"></a> [compute\_display\_name](#input\_compute\_display\_name) | Name of the compute where the disk will be attached to | `any` | n/a | yes |
 | <a name="input_disk_size_in_gb"></a> [disk\_size\_in\_gb](#input\_disk\_size\_in\_gb) | Size in GB for Product Disk | `any` | n/a | yes |
 | <a name="input_fingerprint"></a> [fingerprint](#input\_fingerprint) | API Key Fingerprint for user\_ocid derived from public API Key imported in OCI User config | `any` | n/a | yes |
+| <a name="input_is_opc"></a> [is\_opc](#input\_is\_opc) | Describes if user to use is opc or not. Setting this to false, will default to ubuntu user | `bool` | `true` | no |
 | <a name="input_iscsi_disk_instance_compartment_name"></a> [iscsi\_disk\_instance\_compartment\_name](#input\_iscsi\_disk\_instance\_compartment\_name) | Defines the compartment name where the infrastructure will be created | `any` | n/a | yes |
 | <a name="input_linux_compute_id"></a> [linux\_compute\_id](#input\_linux\_compute\_id) | OCI Id for instance to attach the disk | `any` | `null` | no |
 | <a name="input_linux_compute_private_ip"></a> [linux\_compute\_private\_ip](#input\_linux\_compute\_private\_ip) | Compute private IP to logon into machine | `any` | n/a | yes |

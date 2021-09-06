@@ -13,7 +13,7 @@ resource "null_resource" "provisioning_disk" {
   connection {
     type        = "ssh"
     host        = var.linux_compute_private_ip
-    user        = "opc"
+    user        = var.is_opc ? "opc" : "ubuntu"
     private_key = var.ssh_private_is_path ? file(var.ssh_private_key) : var.ssh_private_key
   }
 
@@ -37,7 +37,7 @@ resource "null_resource" "partition_disk" {
   connection {
     type        = "ssh"
     host        = var.linux_compute_private_ip
-    user        = "opc"
+    user        = var.is_opc ? "opc" : "ubuntu"
     private_key = var.ssh_private_is_path ? file(var.ssh_private_key) : var.ssh_private_key
   }
 
@@ -58,7 +58,7 @@ resource "null_resource" "pvcreate_exec" {
   connection {
     type        = "ssh"
     host        = var.linux_compute_private_ip
-    user        = "opc"
+    user        = var.is_opc ? "opc" : "ubuntu"
     private_key = var.ssh_private_is_path ? file(var.ssh_private_key) : var.ssh_private_key
   }
 
@@ -79,7 +79,7 @@ resource "null_resource" "vgcreate_exec" {
   connection {
     type        = "ssh"
     host        = var.linux_compute_private_ip
-    user        = "opc"
+    user        = var.is_opc ? "opc" : "ubuntu"
     private_key = var.ssh_private_is_path ? file(var.ssh_private_key) : var.ssh_private_key
   }
 
@@ -102,7 +102,7 @@ resource "null_resource" "format_disk_exec" {
   connection {
     type        = "ssh"
     host        = var.linux_compute_private_ip
-    user        = "opc"
+    user        = var.is_opc ? "opc" : "ubuntu"
     private_key = var.ssh_private_is_path ? file(var.ssh_private_key) : var.ssh_private_key
   }
 
@@ -128,7 +128,7 @@ resource "null_resource" "mount_disk_exec" {
   connection {
     type        = "ssh"
     host        = var.linux_compute_private_ip
-    user        = "opc"
+    user        = var.is_opc ? "opc" : "ubuntu"
     private_key = var.ssh_private_is_path ? file(var.ssh_private_key) : var.ssh_private_key
   }
 
