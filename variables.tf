@@ -98,6 +98,11 @@ variable "linux_compute_private_ip" {
   description = "Compute private IP to logon into machine"
 }
 
+variable "is_opc" {
+  description = "Describes if user to use is opc or not. Setting this to false, will default to ubuntu user"
+  default     = true
+
+}
 /************* Disk Variables *************/
 
 /********** Brick Variables **********/
