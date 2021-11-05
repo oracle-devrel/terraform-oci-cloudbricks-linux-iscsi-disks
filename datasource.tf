@@ -35,7 +35,7 @@ locals {
   iscsiadm = "sudo iscsiadm"
   fdisk    = "(echo n; echo p; echo '1'; echo ''; echo ''; echo 't';echo '8e'; echo w) | sudo /sbin/fdisk "
 
-  parted = "parted"
+  parted = "sudo parted"
   pvcreate = "sudo /sbin/pvcreate"
   vgcreate = "sudo /sbin/vgcreate"
   mkfs_xfs = "sudo /sbin/mkfs.xfs"
