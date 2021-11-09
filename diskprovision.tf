@@ -46,7 +46,7 @@ resource "null_resource" "partition_disk" {
     inline = [
       "set +x",
       "export DEVICE_ID=/dev/disk/by-path/ip-${oci_core_volume_attachment.ISCSIDiskAttachment[count.index].ipv4}:${oci_core_volume_attachment.ISCSIDiskAttachment[count.index].port}-iscsi-${oci_core_volume_attachment.ISCSIDiskAttachment[count.index].iqn}-lun-1",
-      "${local.fdisk} $${DEVICE_ID}",
+      "if [ ${var.disk_size_in_gb} > 2000 ]; then ${local.parted} $${DEVICE_ID} mklabel gpt mkpart P1 xfs 0% 100%; else ${local.fdisk} $${DEVICE_ID}; fi",
     ]
   }
 }
